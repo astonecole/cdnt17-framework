@@ -1,0 +1,12 @@
+{
+    "name": "aston/rapido",
+    "type": "libra",
+    "license": "BSD-style",
+    "authors": [
+        {
+            "name": "Vincent Letourneau",
+            "email": "vincent@nanoninja.com"
+        }
+    ],
+    "require": {}
+}
