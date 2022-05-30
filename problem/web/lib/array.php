@@ -27,8 +27,8 @@ function array_aggregate(array $data, array $config)
 
     // Initialization of the final data table.
     // array[
-    //    'columnA' => null,
-    //    'columnB' => null,
+    //    'category_id' => null,
+    //    'name' => null,
     // ]
     $columns = array_fill_keys($config['columns'], null);
 

@@ -1,8 +1,9 @@
 <?php
 
 require 'init.php';
+require 'lib/array.php';
+include 'template/header.phtml';
 
-include 'template/header.phtml'; ?>
 ?>
     <main class="container mt-4">
         <h1 class="mb-5">Blogger</h1>
@@ -10,29 +11,9 @@ include 'template/header.phtml'; ?>
         <div class="row">
             <div class="col-md-8">
                 <?php
-                $categoryID = isset($_GET['category']) ? (int) $_GET['category'] : null;
-                $sql = 'SELECT a.article_id, a.title, a.teaser, a.status, c.category_id, c.name
-                        FROM article AS a
-                        LEFT JOIN article_has_category AS ac
-                            ON a.article_id = ac.article_id
-                        LEFT JOIN category AS c
-                            ON ac.category_id = c.category_id
-                        WHERE a.status = 1';
-
-                if ($categoryID) {
-                    $sql .= ' AND c.category_id=' . $categoryID . ' ';
-                }
-
-                $data = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-
-                include 'lib/array.php';
-                $config = [
-                    'groupBy' => 'article_id',
-                    'alias' => 'categories',
-                    'columns' => ['category_id', 'name'],
-                ];
-
-                $result = array_aggregate($data, $config);
+                $categoryID = $_GET['category'] ?? null;
+                require_once 'repository/article.php';
+                $result = getArticles($pdo, $categoryID);
                 ?>
 
                 <?php foreach ($result as $row) : ?>
