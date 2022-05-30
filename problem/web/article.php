@@ -36,20 +36,9 @@ $sql = 'SELECT c.comment_id, c.content, c.created_at, c.updated_at, c.user_id, u
         WHERE c.is_activated = 1 AND c.article_id = ' . $articleID;
 
 $comments = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+
+include 'template/header.phtml';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogger - Article</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-</head>
-
-<body class="bg-dark text-light">
-
     <main class="container mt-4">
         <div class="row">
             <div class="col-md-8">
@@ -127,6 +116,4 @@ $comments = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </main>
 
-</body>
-
-</html>
+<?php include 'template/footer.phtml'; ?>
