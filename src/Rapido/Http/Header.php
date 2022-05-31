@@ -55,7 +55,7 @@ class Header
         $str = '';
 
         foreach ($this->getValues() as $key => $values) {
-            $str .= sprintf('%s: %s', $key, $this->getLine($key));
+            $str .= sprintf("%s: %s\n", $key, $this->getLine($key));
         }
 
         return $str;
