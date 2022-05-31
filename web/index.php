@@ -19,7 +19,7 @@ $response = new Response();
 $response->setHeader($header);
 
 $header->set('Content-Type', 'text/html; charset=utf-8')
-->set('X-Powered-By', 'Rapido Framework');
+    ->set('X-Powered-By', 'Rapido Framework');
 
 $response->setStatus(200)
     ->send($request->getBody() . ' ' . $request->getMethod());
