@@ -29,4 +29,35 @@ class Header
     {
         return $this->values[$key];
     }
+
+    public function remove(string $key)
+    {
+        unset($this->values[$key]);
+
+        return $this;
+    }
+
+    public function getValues(): array
+    {
+        return $this->values;
+    }
+
+    /**
+     * value1,value2,value3
+     */
+    public function getLine(string $key): string
+    {
+        return sprintf('%s', implode(',', $this->get($key)));
+    }
+
+    public function __toString()
+    {
+        $str = '';
+
+        foreach ($this->getValues() as $key => $values) {
+            $str .= sprintf('%s: %s', $key, $this->getLine($key));
+        }
+
+        return $str;
+    }
 }

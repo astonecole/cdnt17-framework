@@ -8,5 +8,10 @@
             "email": "vincent@nanoninja.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Rapido\\": "./src/Rapido"
+        }
+    },
     "require": {}
 }
