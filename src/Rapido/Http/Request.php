@@ -7,7 +7,7 @@ class Request {
     private array $queryParams = [];  // ?name=toto&age=30
     private array $serverParams = []; // $_SERVER
     private string $method = 'GET';
-    private ?string $body;
+    private ?string $body = null;
     private Uri $uri;
 
     public function __construct(Uri $uri)
@@ -34,13 +34,13 @@ class Request {
     public function getBody(): string
     {
         if (is_null($this->body)) {
-            $this->body = stream_get_contents('php://input');
+            $this->body = file_get_contents('php://input');
         }
 
-        return $this->body;
+        return (string) $this->body;
     }
 
-    public function setBody(string $body): self
+    public function setBody(?string $body): self
     {
         $this->body = $body;
 

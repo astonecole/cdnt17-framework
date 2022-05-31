@@ -13,8 +13,6 @@ $uri = new Uri($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
 $request = new Request($uri);
 $request->setServerParams($_SERVER);
 
-var_dump($request->getQueryParams());
-
 $header = new Header();
 $response = new Response();
 
@@ -23,5 +21,5 @@ $response->setHeader($header);
 $header->set('Content-Type', 'text/html; charset=utf-8')
 ->set('X-Powered-By', 'Rapido Framework');
 
-$response->setStatus(404)
-    ->send('<h1>Hello World</h1>');
+$response->setStatus(200)
+    ->send($request->getBody() . ' ' . $request->getMethod());
