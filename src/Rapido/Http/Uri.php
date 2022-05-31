@@ -21,7 +21,6 @@ class Uri
             ->setHost($parts['host'] ?? '')
             ->setUser($parts['user'] ?? '')
             ->setPass($parts['pass'] ?? '')
-            ->setHost($parts['host'] ?? '')
             ->setPort((int) $parts['port'] ?? 80)
             ->setPath($parts['path'] ?? '')
             ->setQuery($parts['query'] ?? '')
