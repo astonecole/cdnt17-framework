@@ -1,13 +1,17 @@
 <?php
 
+ini_set('display_errors', 'On');
+
 use Rapido\Http\Header;
+use Rapido\Http\Response;
 
 require '../vendor/autoload.php';
 
 $header = new Header();
+$response = new Response();
+$response->setHeader($header);
 
-$header->set('Content-Type', 'text/plain; charset=utf-8')
-    ->set('X-Powered-By', 'Rapido Framework')
-    ->remove('Content-Type');
+$header->set('Content-Type', 'text/html; charset=utf-8')
+    ->set('X-Powered-By', 'Rapido Framework');
 
-echo $header;
+$response->setStatus(404)->send('<h1>Hello World</h1>');
