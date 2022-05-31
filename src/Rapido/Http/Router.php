@@ -2,6 +2,8 @@
 
 namespace Rapido\Http;
 
+use Rapido\Http\Router\Route;
+
 interface Router
 {
     public function match(): ?Route;
