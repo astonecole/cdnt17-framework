@@ -2,6 +2,7 @@
 
 ini_set('display_errors', 'On');
 
+use Rapido\Container\Container;
 use Rapido\Http\Header;
 use Rapido\Http\Request;
 use Rapido\Http\Response;
@@ -10,6 +11,21 @@ use Rapido\Http\Router\RegexRouter;
 use Rapido\Http\Uri;
 
 require '../vendor/autoload.php';
+
+function counter() {
+    static $service = null;
+    $count++;
+
+    echo $count;
+}
+
+counter();
+counter();
+counter();
+counter();
+counter();
+
+exit(0);
 
 $uri = new Uri($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
 $request = new Request($uri);
@@ -21,8 +37,8 @@ $container = new Container();
 
 $container->register('app:name', 'Rapido Framework');
 
-$container->register('app', function ($container) {
-    echo $container->get('app:name');
+$container->protected('app', function ($c) {
+    echo $c->get('app:name');
 });
 
 $container->register('router:class:name', RegexRouter::class);
