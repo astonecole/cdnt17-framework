@@ -5,6 +5,7 @@ ini_set('display_errors', 'On');
 use Rapido\Http\Header;
 use Rapido\Http\Request;
 use Rapido\Http\Response;
+use Rapido\Http\Router;
 use Rapido\Http\Router\RegexRouter;
 use Rapido\Http\Uri;
 
@@ -16,11 +17,44 @@ $request->setServerParams($_SERVER);
 
 $router = new RegexRouter($request);
 
-$router->addRoute('GET', '/articles/(?<id>[0-9]+)', function () {
-    echo 'Welcome';
+$container = new Container();
+
+$container->register('app:name', 'Rapido Framework');
+
+$container->register('app', function ($container) {
+    echo $container->get('app:name');
 });
 
-var_dump($router->match());
+$container->register('router:class:name', RegexRouter::class);
+
+$container->register('router', function ($container): Router {
+    $router = $container->get('router:class:name');
+    $request = $container->get('http:request');
+
+    return new $router($request);
+});
+
+$container->register('db:driver', 'mysql:host=localhost;');
+$container->singleton('db', function () {
+
+});
+
+$container->protected('controller', function () {
+
+});
+
+$container->get('db')->query();
+
+$container->get('router')->addRoute('');
+
+$router->addRoute('GET', '/articles', function ($req, $res) use ($container) {
+    $container->get('app');
+});
+
+$route = $router->match();
+
+$action = $route->getAction();
+$action($request, new Response());
 
 $header = new Header();
 $response = new Response();
