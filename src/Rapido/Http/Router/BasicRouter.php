@@ -10,6 +10,11 @@ class BasicRouter implements Router
     private array $routes = [];
     private Request $request;
 
+    public function __construct(Request $request)
+    {
+        $this->setRequest($request);
+    }
+
     public function match(): ?Route
     {
         $path = $this->getRequest()->getUri()->getPath();
@@ -21,7 +26,11 @@ class BasicRouter implements Router
 
         $route = $this->routes[$path];
 
-        if ($route->getMethod() !== $method || !in_array($method, $route->getMethod())) {
+        if (is_array($route->getMethod()) && !in_array($route->getMethod(), $method)) {
+            return null;
+        }
+    
+        if ($route->getMethod() !== $method) {
             return null;
         }
 

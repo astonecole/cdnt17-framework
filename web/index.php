@@ -14,7 +14,13 @@ $uri = new Uri($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
 $request = new Request($uri);
 $request->setServerParams($_SERVER);
 
-$router = new BasicRouter();
+$router = new BasicRouter($request);
+
+$router->addRoute('GET', '/articles', function () {
+    echo 'Welcome';
+});
+
+var_dump($router->match());
 
 $header = new Header();
 $response = new Response();
