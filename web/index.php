@@ -13,8 +13,14 @@ require './config/services.php';
 $container = initServices(new Container());
 $app = new Rapido($container);
 
-$app->get('/blog/articles/add', function (Request $req, Response $res) {
+$app->get('/blog/articles/add', function (Request $req, Response $res) use ($container) {
+    $db = $container->get('db');
+
     $res->send('<h1>Hello World</h1>');
 });
 
-$app->run();
+try {
+    $app->run();
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
