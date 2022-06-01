@@ -9,6 +9,13 @@ class Route
     private array $params = [];
     private $action;
 
+    public function __construct(string|array $method, string $path, callable $action)
+    {
+        $this->setMethod($method)
+            ->setPath($path)
+            ->setAction($action);
+    }
+
     public function getAction(): callable
     {
         return $this->action;
