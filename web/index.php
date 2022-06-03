@@ -6,7 +6,6 @@ use Rapido\App\Service;
 use Rapido\Http\Request;
 use Rapido\Http\Response;
 use Rapido\App\Rapido;
-use Rapido\View\Renderer\Json;
 
 require '../vendor/autoload.php';
 require './config/services.php';
