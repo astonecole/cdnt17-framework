@@ -21,9 +21,7 @@ $app->get('/blog/articles/add', function (Request $req, Response $res) use ($con
 });
 
 $app->get('/view/test', function (Request $req, Response $res) {
-    $r = new Json();
-    $r->setData(['name' => 'toto']);
-    $r->render($res);
+    $res->render(['name' => 'toto']);
 });
 
 try {

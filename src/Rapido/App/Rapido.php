@@ -18,10 +18,12 @@ class Rapido
     public function run()
     {
         $router = $this->container->get('router');
+        $renderer = $this->container->get('render');
         $request = $router->getRequest();
 
         $response = new Response();
-        $response->setHeader(new Header());
+        $response->setHeader(new Header())
+            ->setRenderer($renderer);
 
         if (($route = $router->match()) !== null) {
             $action = $route->getAction();

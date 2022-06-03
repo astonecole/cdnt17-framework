@@ -2,32 +2,17 @@
 
 namespace Rapido\View\Renderer;
 
-use InvalidArgumentException;
-use Rapido\Http\Response;
-use Rapido\View\Renderer;
-
-class Json implements Renderer
+class Json extends AbstractRenderer
 {
-    private $data = [];
-
-    public function setData($data): self
-    {
-        if (!is_array($data)) {
-            throw new InvalidArgumentException('data must be an array');
+    public function render($data, array $options = [])
+    {    
+        if (!empty($options)) {
+            $this->setOptions($options);
         }
 
-        $this->data = $data;
-        return $this;
-    }
+        $contentType = sprintf('%s; %s', $this->getOption('content-type'), $this->getOption('charset'));
 
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    public function render(Response $response)
-    {
-        $response->getHeader()->set('Content-Type', 'application/json');
-        $response->send(json_encode($this->getData()));
+        $this->getResponse()->getHeader()->set('Content-Type', $contentType);
+        $this->getResponse()->send(json_encode($data, $this->getOption('flags'), $this->getOption('depth')));
     }
 }
