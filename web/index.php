@@ -6,6 +6,7 @@ use Rapido\App\Service;
 use Rapido\Http\Request;
 use Rapido\Http\Response;
 use Rapido\App\Rapido;
+use Rapido\View\Renderer\Json;
 
 require '../vendor/autoload.php';
 require './config/services.php';
@@ -17,6 +18,12 @@ $app->get('/blog/articles/add', function (Request $req, Response $res) use ($con
     $db = $container->get('db');
 
     $res->send('<h1>Hello World</h1>');
+});
+
+$app->get('/view/test', function (Request $req, Response $res) {
+    $r = new Json();
+    $r->setData(['name' => 'toto']);
+    $r->render($res);
 });
 
 try {

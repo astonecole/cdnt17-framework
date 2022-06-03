@@ -8,9 +8,11 @@ class Response
     private int $status = 200;
     private string $body = '';
 
-    public function send(string $body)
+    public function send(string $body = '')
     {
-        $this->setBody($body);
+        if ($body !== '') {
+            $this->setBody($body);
+        }
 
         http_response_code($this->getStatus());
 
