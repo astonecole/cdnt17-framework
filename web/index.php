@@ -2,15 +2,15 @@
 
 ini_set('display_errors', 'On');
 
-use Rapido\App\Rapido;
-use Rapido\Container\Container;
+use Rapido\App\Service;
 use Rapido\Http\Request;
 use Rapido\Http\Response;
+use Rapido\App\Rapido;
 
 require '../vendor/autoload.php';
 require './config/services.php';
 
-$container = initServices(new Container());
+$container = initServices(new Service());
 $app = new Rapido($container);
 
 $app->get('/blog/articles/add', function (Request $req, Response $res) use ($container) {

@@ -84,6 +84,11 @@ class Request {
         return $this;
     }
 
+    public function getServerParam(string $key, $default = null)
+    {
+        return $this->serverParams[$key] ?? $default;
+    }
+
     public function getParams(): array
     {
         return $this->params;

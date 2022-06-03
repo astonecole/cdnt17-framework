@@ -4,10 +4,7 @@ namespace Rapido\App;
 
 use Rapido\Container\Container;
 use Rapido\Http\Header;
-use Rapido\Http\Request;
 use Rapido\Http\Response;
-use Rapido\Http\Uri;
-use Rapido\Http\Router\RegexRouter;
 
 class Rapido
 {
@@ -16,16 +13,6 @@ class Rapido
     public function __construct(Container $container)
     {
         $this->container = $container;
-
-        if (!$container->has('router')) {
-            $container->singleton('router', function () {
-                $uri = new Uri($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-                $request = new Request($uri);
-                $request->setServerParams($_SERVER);
-    
-                return new RegexRouter($request);
-            });
-        }
     }
 
     public function run()
@@ -64,6 +51,11 @@ class Rapido
     public function delete(string $path, callable $action)
     {
         return $this->setRoute('DELETE', $path, $action);
+    }
+
+    public function all(array $methods, string $path, callable $action)
+    {
+        return $this->setRoute($methods, $path, $action);
     }
 
     protected function setRoute(string|array $method, string $path, callable $action): self

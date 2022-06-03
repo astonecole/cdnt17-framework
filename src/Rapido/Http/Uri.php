@@ -13,7 +13,14 @@ class Uri
     private string $query = '';
     private string $fragment = '';
 
-    public function __construct(string $url)
+    public function __construct(string $url = '')
+    {
+        if ($url !== '') {
+            $this->parse($url);
+        }
+    }
+    
+    public function parse(string $url)
     {
         $parts = parse_url($url);
 
